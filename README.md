@@ -1,6 +1,6 @@
 # Classroom Coding
 
-> this is a port to use [redux][r] with the [redux-future][rf] middleware
+> this is a port which uses [redux][r] with the [redux-future][rf] middleware
 
 ## Thoughts
 
