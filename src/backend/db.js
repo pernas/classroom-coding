@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('collagr', 'brian', 'root', {dialect: 'postgres'});
+const sequelize = new Sequelize('collagr', 'stoeffel', '', {dialect: 'postgres'});
 const Task = require('data.task')
 const {curry} = require('ramda')
 

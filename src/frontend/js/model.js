@@ -36,5 +36,11 @@ const replacePhoto = curry((p, ps) => compose(fold(append(p), () => append(p, ps
                                               map(i => remove(i, 1, ps)),
                                               indexOfPhoto(p))(ps))
 
-module.exports = { flickrSearch, Photo, replacePhoto }
+// save :: [Photo] -> Task Error [Photo]
+const save = Http.post('/save');
+
+// load :: Task Error [Photo]
+const load = Http.get('/photos');
+
+module.exports = { flickrSearch, Photo, replacePhoto, save, load }
 
