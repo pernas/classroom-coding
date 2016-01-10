@@ -1,5 +1,7 @@
 # Classroom Coding
 
+> this is a port to use [redux][r] with the [redux-future][rf] middleware
+
 ## Thoughts
 
 This is a "practical" application built with react and functional techniques. React components are "impure" and our model stays pure (although there's a bit of cheating in utils as it's a hodge podge).
@@ -30,3 +32,5 @@ npm run dev
 npm run server
 ```
 
+[r]: http://redux.js.org/
+[rf]: https://github.com/stoeffel/redux-future
