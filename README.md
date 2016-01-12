@@ -1,18 +1,11 @@
 # Classroom Coding
 
-> this is a port which uses [redux][r] with the [redux-future][rf] middleware
+> this is a port which uses [redux][r] with the [redux-future][rf] and [redux-either][re] middleware
 
 ## Thoughts
 
 This is a "practical" application built with react and functional techniques. React components are "impure" and our model stays pure (although there's a bit of cheating in utils as it's a hodge podge).
 
-## How to use
-
-In Pt1, we build a standard flickr search component. Pt2 updates it to a drag and drop collage. Pt3 persists to a postgres db using node/express.
-
-Each branch pt1, pt2, etc is the finished version of that feature set. As such, one should start with master to build pt1, start with pt1 to build pt2 and so on.
-
-After installing visit http://localhost:5431 to see the blank slate app. If greeted with a snowy white page, you'll know you succeeded.
 
 ## Install
 
@@ -34,3 +27,4 @@ npm run server
 
 [r]: http://redux.js.org/
 [rf]: https://github.com/stoeffel/redux-future
+[re]: https://github.com/stoeffel/redux-either
