@@ -1,5 +1,5 @@
 const {curry, append, remove, compose, replace, prop, map, ifElse, propSatisfies, equals} = require('ramda')
-const { indexOf, Http } = require('./utils')
+const { indexOf, Http, Compose } = require('./utils')
 const { fold } = require('pointfree-fantasy')
 const { Some, None } = require('fantasy-options')
 const { Left, Right } = require('data.either')
@@ -28,9 +28,11 @@ const toPhoto = compose(map(compose(newPhoto, prop('url_s'))), prop('photo'), pr
 // failed :: {a} -> Either b a
 const statFail = propSatisfies(equals('fail'), 'stat')
 
+// toPhotoOrFail :: {a} -> Either b c
+const toPhotoOrFail = compose(map(toPhoto), ifElse(statFail, Left, Right));
+
 // flickrSearch :: Term -> Task Error (Either Error [Photo])
-const flickrSearch = compose( map(map(toPhoto))
-                            , map(ifElse(statFail, Left, Right))
+const flickrSearch = compose( map(toPhotoOrFail)
                             , Http.get
                             , makeUrl
                             )
