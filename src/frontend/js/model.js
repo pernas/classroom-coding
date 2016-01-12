@@ -1,7 +1,8 @@
-const {curry, append, remove, compose, replace, prop, map} = require('ramda')
+const {curry, append, remove, compose, replace, prop, map, ifElse, propSatisfies, equals} = require('ramda')
 const { indexOf, Http } = require('./utils')
 const { fold } = require('pointfree-fantasy')
 const { Some, None } = require('fantasy-options')
+const { Left, Right } = require('data.either')
 const daggy = require('daggy')
 
 const Url = String
@@ -24,8 +25,15 @@ const makeUrl = (t) => replace("{TAGS}", t, baseUrl)
 // toPhoto :: JSON -> [Photo]
 const toPhoto = compose(map(compose(newPhoto, prop('url_s'))), prop('photo'), prop('photos'))
 
-// flickrSearch :: Term -> Task Error [Photo]
-const flickrSearch = compose(map(toPhoto), Http.get, makeUrl)
+// failed :: {a} -> Either b a
+const statFail = propSatisfies(equals('fail'), 'stat')
+
+// flickrSearch :: Term -> Task Error (Either Error [Photo])
+const flickrSearch = compose( map(map(toPhoto))
+                            , map(ifElse(statFail, Left, Right))
+                            , Http.get
+                            , makeUrl
+                            )
 
 // indexOfPhoto :: Photo -> [Photo] -> Number
 const indexOfPhoto = curry((p, ps) => indexOf(p.src, ps.map(prop('src'))))

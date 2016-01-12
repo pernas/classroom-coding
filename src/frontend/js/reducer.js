@@ -16,12 +16,13 @@ function reducer(state = initialState, { type, payload, error }) {
     if (error) {
       return {
         ...state,
-        error: payload.statusText + ' ' + payload.status
+        error: payload.statusText || payload.message
       };
     }
     return {
       ...state,
-      photos: payload
+      photos: payload,
+      error: undefined
     };
   case 'UPDATE_COLLAGE':
   case 'LOAD_COLLAGE':
