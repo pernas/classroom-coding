@@ -1,3 +1,5 @@
+const { assoc, dissoc, compose } = require('ramda');
+
 const initialState = {
   searchTerm: '',
   collage: [],
@@ -8,28 +10,16 @@ const initialState = {
 function reducer(state = initialState, { type, payload, error }) {
   switch (type) {
   case 'CHANGE_TERM':
-    return {
-      ...state,
-      searchTerm: payload
-    };
+    return assoc('searchTerm', payload, state);
   case 'SEARCH':
-    if (error) {
-      return {
-        ...state,
-        error: payload.statusText || payload.message
-      };
-    }
-    return {
-      ...state,
-      photos: payload,
-      error: undefined
-    };
+    if (error) return assoc('error', payload.statusText || payload.message, state);
+
+    return compose( assoc('photos', payload)
+                  , dissoc('error')
+                  )( state);
   case 'UPDATE_COLLAGE':
   case 'LOAD_COLLAGE':
-    return {
-      ...state,
-      collage: payload
-    };
+    return assoc('collage', payload, state);
   default:
     return state
   }
